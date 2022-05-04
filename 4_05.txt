@@ -1,0 +1,41 @@
+133. Clone Graph
+
+/**class Node {
+    public int val;
+    public List<Node> neighbors;
+}*/
+class Solution {
+public:
+    Node* dfs(Node* cur,unordered_map<Node*,Node*> &mp)
+        
+    {
+        Node* copy=new Node(cur->val);
+        mp[cur]= copy;
+        for(auto it: cur->neighbors){
+            if(mp.find(it)!= mp.end())
+            {
+                copy->neighbors.push_back(mp[it]);
+            }
+            else 
+            {
+                dfs(it,mp);
+                copy->neighbors.push_back(mp[it]);
+            }
+        }
+        return copy;
+        
+    }
+    Node* cloneGraph(Node* node) {
+        unordered_map<Node*, Node*> mp;
+        if(node==NULL)
+            return node;
+        if(node->neighbors.size()==0)
+        {
+            Node *clone= new Node(node->val);
+            return clone;
+            
+        }
+        return dfs(node,mp);
+        
+    }
+};
