@@ -26,3 +26,80 @@ for(end=0; end<n ; end++)
         return maxi;
     }
 };
+
+
+
+ROMAN TOO INTEGER *******************
+
+[200~class Solution {
+public:
+    int romanToInt(string s) {
+        //  string str[]={"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
+        // int integer[]={1,4,5,9,10,40,50,90,100,400,500,900,1000};
+        unordered_map<char , int>vec;
+         vec.insert({'I',1});
+         vec.insert({'V',5});
+         vec.insert({'X',10});
+         vec.insert({'L',50});
+         vec.insert({'C',100});
+         vec.insert({'D',500});
+         vec.insert({'M',1000});
+        int n = vec.size();
+        int res=0;
+        for(int i=0 ; i<s.size();i++)
+
+        {
+            int num= vec[s[i]];
+            if(i<s.size()-1){
+                if(s[i]=='I' and (s[i+1]=='V' or s[i+1]=='X') ||
+                  s[i]=='X' and (s[i+1]=='L' or s[i+1]=='C') ||
+                  s[i]=='C' and (s[i+1]=='D' or s[i+1]=='M') )
+                {
+                    res+= vec[s[i+1]]-num;
+                    i++;
+                    continue;
+                }
+
+
+            }
+
+                     res+=num;
+
+        }
+        return res;
+    }
+};
+
+
+
+
+
+**********integer to roman*************
+
+
+class Solution {
+public:
+    string intToRoman(int num) {
+        string str[]={"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
+        int integer[]={1,4,5,9,10,40,50,90,100,400,500,900,1000};
+        int copy = num;
+        string ans="";
+        int n=sizeof(integer)/sizeof(integer[0]);
+        int i=n-1;
+        while(copy!=0 and i>=0 )
+        {
+            if(copy>=integer[i])
+            {
+                ans+=str[i];
+                copy-=integer[i];
+
+            }
+            else
+                i--;
+
+        }
+        return ans;
+
+    }
+};
+
